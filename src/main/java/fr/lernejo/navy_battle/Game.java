@@ -1,53 +1,47 @@
 package fr.lernejo.navy_battle;
 
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Game {
-    private BattleField playerField;
-    private BattleField opponentField;
-    private boolean gameOver;
+    final List<List<int[]>> game_board;
+    final boolean[] ingame;
+    final Board init_board;
+    final Server server;
+    final End shoot;
 
-    public Game() {
-        playerField = new BattleField();
-        opponentField = new BattleField();
-        gameOver = false;
+    final Pattern p = Pattern.compile("^[A-J](10|[1-9])$");
+
+    enum FireResult {miss, hit, sunk, out}
+
+    Game(Server server) {
+        ingame = new boolean[]{false};
+        init_board = new Board();
+        game_board = init_board.GenerateBoard();
+        this.server = server;
+        shoot = new End(this);
     }
 
-    public void start() {
-        placePlayerShips();
-        placeOpponentShips();
-
-        while (!gameOver) {
-            playerTurn();
-            opponentTurn();
-            checkGameOver();
-        }
+    public FireResult ShotAt(String cell) throws IOException {
+        if (!p.matcher(cell).find()) { return FireResult.out; }
+        int y = (cell.charAt(0) - 'A');
+        int x = Integer.parseInt(cell.split("[A-J]")[1]) - 1;
+        for (List<int[]> ship_loc : game_board) {
+            for (int[] loc : ship_loc) {
+                if (loc[0] == x && loc[1] == y) {
+                    ship_loc.remove(loc);
+                    if (ship_loc.size() == 0) {
+                        game_board.remove(ship_loc);
+                        return FireResult.sunk;
+                    }
+                    return FireResult.hit; } } }
+        return FireResult.miss;
     }
 
-    private void placePlayerShips() {
-        // code to prompt user to place their ships on the playerField
-    }
-
-    private void placeOpponentShips() {
-        // code to randomly place opponent ships on the opponentField
-    }
-
-    private void playerTurn() {
-        System.out.println("Your turn! Choose a cell to attack (ex. A5): ");
-        Scanner sc = new Scanner(System.in);
-        String input = sc.nextLine();
-        // code to parse user input and attack the corresponding cell on the opponentField
-    }
-
-    private void opponentTurn() {
-        // code to randomly select a cell to attack on the playerField
-    }
-
-    private void checkGameOver() {
-        // code to check if either player or opponent has no ships left
-        if (gameOver) {
-            System.out.println("Game over!");
-        }
+    public void FireBack() {
+        int[] loc = shoot.GetCellToShoot();
+        loc[0]++;
+        shoot.Shoot(loc);
     }
 }
-
