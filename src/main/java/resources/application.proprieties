@@ -1,0 +1,8 @@
+server.port=8080
+battlefield.width=10
+battlefield.height=10
+ships.porte_avion=5
+ships.croiseur=4
+ships.contre_torpilleur=3
+ships.torpilleur=2
+
