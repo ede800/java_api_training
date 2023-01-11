@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-private class Board {
+public class Board {
 
     final int[] all_ships = new int[]{5, 4, 3, 3, 2};
-    private final Random rand;
+    final Random rand;
 
     Board() {
         rand = new Random();
