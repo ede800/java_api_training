@@ -11,8 +11,8 @@ import java.net.http.HttpResponse;
 
 public class Client {
 
-    final Server server;
-    final String url;
+    private final Server server;
+    private final String url;
 
     Client(Server s, String url) throws URISyntaxException {
         server = s;
