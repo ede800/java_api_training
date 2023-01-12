@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class End {
-    private final Game game;
+    final Game game;
 
-    private final List<int[]> all_shots = new ArrayList<>();
+    final List<int[]> all_shots = new ArrayList<>();
 
     public End(Game g) {
         game = g;

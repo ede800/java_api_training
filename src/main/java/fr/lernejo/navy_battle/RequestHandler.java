@@ -9,8 +9,8 @@ import java.io.OutputStream;
 
 public class RequestHandler {
 
-    private final Server server;
-    private final Check check;
+    final Server server;
+    final Check check;
 
     RequestHandler(Server s) {
         server = s;

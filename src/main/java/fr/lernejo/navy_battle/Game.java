@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Game {
-    private final List<List<int[]>> game_board;
-    private final boolean[] ingame;
-    private final Board init_board;
-    private final Server server;
-    private final End shoot;
+    final List<List<int[]>> game_board;
+    final boolean[] ingame;
+    final Board init_board;
+    final Server server;
+    final End shoot;
 
-    private final Pattern p = Pattern.compile("^[A-J](10|[1-9])$");
+    final Pattern p = Pattern.compile("^[A-J](10|[1-9])$");
 
     enum FireResult {miss, hit, sunk, out}
 

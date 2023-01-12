@@ -13,13 +13,13 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    private final int port;
-    private final String url;
-    private final HttpServer server;
-    private final String serverID;
-    private final RequestHandler handler;
-    private final Game game;
-    private final String[] target;
+    final int port;
+    final String url;
+    final HttpServer server;
+    final String serverID;
+    final RequestHandler handler;
+    final Game game;
+    final String[] target;
 
     void generateHtml(HttpExchange exchange, int error) throws IOException {
         String body = String.format("<h1>%s</h1>", error);
@@ -29,7 +29,7 @@ public class Server {
         }
     }
 
-    private final HttpHandler pingResponse = exchange -> {
+    final HttpHandler pingResponse = exchange -> {
         String body = "OK";
         exchange.sendResponseHeaders(200, body.length());
         try (OutputStream os = exchange.getResponseBody()) {
@@ -37,7 +37,7 @@ public class Server {
         }
     };
 
-    private final HttpHandler shotResponse = new HttpHandler() {
+    final HttpHandler shotResponse = new HttpHandler() {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if (!exchange.getRequestMethod().equals("GET")) {
@@ -48,7 +48,7 @@ public class Server {
         }
     };
 
-    private final HttpHandler startResponse = new HttpHandler() {
+    final HttpHandler startResponse = new HttpHandler() {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if (game.ingame[0] || !exchange.getRequestMethod().equals("POST")) {
@@ -63,7 +63,7 @@ public class Server {
         }
     };
 
-    private final HttpHandler defaultResponse = exchange -> generateHtml(exchange, 404);
+    final HttpHandler defaultResponse = exchange -> generateHtml(exchange, 404);
 
     Server(String port) throws IOException {
         this.port = Integer.parseInt(port);
