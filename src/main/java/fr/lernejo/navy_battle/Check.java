@@ -6,11 +6,11 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class Check {
-    private final JSONObject rawstartrequest = new JSONObject(new JSONTokener("{\"$schema\": \"http://json-schema.org/draft-07/schema\",\"type\": \"object\",\"properties\": {\"id\": {\"type\": \"string\"},\"url\": {\"type\": \"string\"},\"message\": {\"type\": \"string\"}},\"required\": [\"id\", \"url\",\"message\"]}"));
-    private final Schema startrequestschema = SchemaLoader.load(rawstartrequest);
+    final JSONObject rawstartrequest = new JSONObject(new JSONTokener("{\"$schema\": \"http://json-schema.org/draft-07/schema\",\"type\": \"object\",\"properties\": {\"id\": {\"type\": \"string\"},\"url\": {\"type\": \"string\"},\"message\": {\"type\": \"string\"}},\"required\": [\"id\", \"url\",\"message\"]}"));
+    final Schema startrequestschema = SchemaLoader.load(rawstartrequest);
 
-    private final JSONObject rawfirerequest = new JSONObject(new JSONTokener("{\"$schema\": \"http://json-schema.org/draft-07/schema\",\"type\": \"object\",\"properties\": {\"consequence\": {\"type\": \"string\",\"enum\": [\"miss\", \"hit\", \"sunk\"]},\"shipLeft\": {\"type\": \"boolean\"}} ,\"required\": [\"consequence\",\"shipLeft\"]}"));
-    private final Schema firerequestschema = SchemaLoader.load(rawfirerequest);
+    final JSONObject rawfirerequest = new JSONObject(new JSONTokener("{\"$schema\": \"http://json-schema.org/draft-07/schema\",\"type\": \"object\",\"properties\": {\"consequence\": {\"type\": \"string\",\"enum\": [\"miss\", \"hit\", \"sunk\"]},\"shipLeft\": {\"type\": \"boolean\"}} ,\"required\": [\"consequence\",\"shipLeft\"]}"));
+    final Schema firerequestschema = SchemaLoader.load(rawfirerequest);
 
     public String ValidateStartRequest(String Request) {
         JSONObject obj = new JSONObject(Request);
